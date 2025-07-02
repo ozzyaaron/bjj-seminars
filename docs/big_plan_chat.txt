@@ -1,0 +1,168 @@
+# BJJ Seminar Tracker - Planning Session Summary
+
+## Initial Requirements Discussion
+
+### Core Technologies Requested
+- Ruby on Rails with SQLite (open to PostgreSQL)
+- TailwindCSS for styling
+- Minimal additional gems philosophy
+- Progressive Web App (PWA) capability
+
+### Core Functionality Requirements
+
+#### User Roles and Authentication
+- Anonymous users: Can browse and search seminars
+- Registered users: Can create and manage their own seminars
+- Admin users: Can delete any seminar or user
+
+#### Data Models Identified
+1. **BJJ Players/Instructors**
+   - Name, nationality, team affiliation
+   - Profile images
+   - Can be associated with multiple seminars
+
+2. **BJJ Teams**
+   - Team listings (optional association for players)
+   - Support for future expansion
+
+3. **Seminars**
+   - Multiple players per seminar
+   - Location with Google Maps integration
+   - Address decomposition (country, state, city)
+   - Timezone-aware scheduling
+   - Focus on USA initially, with international expansion planned
+
+4. **Users**
+   - Authentication required for seminar creation
+   - Account management and ownership of created seminars
+
+#### Search and Discovery
+- Anonymous search by city, state, and players
+- No authentication required for browsing
+
+#### Anti-Fraud Protection Requirements
+- Prevent malicious users from creating multiple accounts
+- Prevent flooding system with fake seminars
+- Multi-layered approach discussed:
+  - Account verification
+  - Rate limiting
+  - Content validation
+  - Behavioral analysis
+  - Community reporting
+
+## Iterative Requirements Refinement
+
+### User Management and Roles
+- Admin role for content moderation
+- Regular users can edit/delete their own future seminars
+- Admins can delete any seminar or user record
+
+### Notification System
+- Daily digest emails for registered users
+- Notification filters:
+  - Specific players to follow
+  - Geographic preferences (state/city)
+  - Combined filters in single digest
+- Duplicate prevention for notifications
+- Only for registered users
+
+### Image Management
+- Up to 10 images per seminar
+- One primary image selection
+- Profile images for players and teams
+
+### Rate Limiting Specifications
+- Account creation: 1 per IP per day
+- Seminar creation: 25 per user per day (increased from initial discussion)
+
+### Progressive Web App Requirements
+- Function as both regular web app and installable PWA
+- Mobile-friendly interface
+- Offline capability consideration
+
+### Technology Stack Refinements
+- Phlex or ViewComponent for component-based architecture (Phlex chosen)
+- RSpec and Cucumber for testing
+- Ruby LSP with associated testing LSPs
+- PORO-based test data (no FactoryBot or Fabrication)
+- Rails validations + database constraints dual-layer approach
+
+## Technical Architecture Decisions
+
+### Component Architecture
+- Phlex chosen over ViewComponent
+- Component-based UI over Rails templates
+- Better testability and reusability
+
+### PWA Implementation Strategy
+- Hybrid approach using Rails templates + Turbo
+- Server-rendered HTML with Phlex components
+- Service worker for offline caching
+- Push notifications via Rails Action Cable + web-push
+- NOT API-based (maintains Rails strengths)
+
+### Validation Strategy
+- Dual-layer protection:
+  - Database constraints for data integrity
+  - Rails validations for user experience
+- Defense-in-depth approach
+
+### Testing Philosophy
+- Plain Old Ruby Objects (POROs) for test data
+- Custom builder classes
+- Test helper modules
+- No external factories (FactoryBot/Fabrication rejected)
+
+### Image Management
+- Active Storage for file handling
+- Multiple variants for different display sizes
+- Database constraints for business rules (max 10 images, single primary)
+
+## Future Considerations Discussed
+
+### Reviews and Ratings (Phase 2)
+- User reviews for seminars
+- Rating system (1-5 stars)
+- Moderation capabilities
+- Keep in plan for future implementation
+
+### API Requirements (Phase 3)
+- No immediate API needs
+- Plan for future RESTful JSON API
+- Mobile app support consideration
+- Versioned endpoints strategy
+
+### International Expansion
+- Database schema prepared for multiple countries
+- Timezone handling built-in
+- Address format flexibility
+- Localization support structure
+
+## Key Technical Requirements Established
+
+### Database Schema
+- Comprehensive constraint system
+- Foreign key relationships
+- Check constraints for business rules
+- Unique indexes for data integrity
+
+### Security Measures
+- Multi-layer fraud prevention
+- Rate limiting with Rack::Attack
+- Content Security Policy
+- HTTPS requirements for PWA
+
+### Performance Considerations
+- Database indexing strategy
+- Image optimization
+- Offline-first PWA architecture
+- Efficient search capabilities
+
+## Implementation Approach
+- Start with core functionality
+- Build robust foundation with dual-layer validation
+- Progressive enhancement for PWA features
+- Test-driven development with PORO-based test data
+- Component-first UI development
+
+This planning session established a comprehensive roadmap for building a modern, secure, and scalable BJJ seminar tracking application with both web and mobile PWA capabilities.
