@@ -10,7 +10,32 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_07_03_133718) do
+ActiveRecord::Schema[8.0].define(version: 2025_07_03_150014) do
+  create_table "notification_deliveries", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.integer "seminar_id", null: false
+    t.datetime "delivered_at", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["delivered_at"], name: "index_notification_deliveries_on_delivered_at"
+    t.index ["seminar_id"], name: "index_notification_deliveries_on_seminar_id"
+    t.index ["user_id", "seminar_id"], name: "index_notification_deliveries_on_user_id_and_seminar_id", unique: true
+    t.index ["user_id"], name: "index_notification_deliveries_on_user_id"
+  end
+
+  create_table "notification_requests", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.text "player_ids"
+    t.string "city", limit: 100
+    t.string "state", limit: 2
+    t.boolean "active", default: true, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["city", "state"], name: "index_notification_requests_on_city_and_state"
+    t.index ["user_id", "active"], name: "index_notification_requests_on_user_id_and_active"
+    t.index ["user_id"], name: "index_notification_requests_on_user_id"
+  end
+
   create_table "players", force: :cascade do |t|
     t.string "name", null: false
     t.string "nationality", limit: 100, null: false
@@ -91,6 +116,9 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_03_133718) do
     t.check_constraint "daily_seminar_count >= 0 AND daily_seminar_count <= 25", name: "daily_seminar_count_range"
   end
 
+  add_foreign_key "notification_deliveries", "seminars"
+  add_foreign_key "notification_deliveries", "users"
+  add_foreign_key "notification_requests", "users"
   add_foreign_key "players", "teams"
   add_foreign_key "seminar_images", "seminars"
   add_foreign_key "seminar_players", "players"
