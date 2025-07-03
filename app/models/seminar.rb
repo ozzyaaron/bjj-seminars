@@ -74,6 +74,12 @@ class Seminar < ApplicationRecord
   end
 
   def address_changed?
-    address_changed? || city_changed? || state_changed? || zip_code_changed? || country_changed?
+    changed? && (
+      changes.key?('address') || 
+      changes.key?('city') || 
+      changes.key?('state') || 
+      changes.key?('zip_code') || 
+      changes.key?('country')
+    )
   end
 end
