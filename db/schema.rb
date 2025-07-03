@@ -10,7 +10,29 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_07_03_130916) do
+ActiveRecord::Schema[8.0].define(version: 2025_07_03_131210) do
+  create_table "players", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "nationality", limit: 100, null: false
+    t.integer "team_id"
+    t.text "bio"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["name"], name: "index_players_on_name"
+    t.index ["nationality"], name: "index_players_on_nationality"
+    t.index ["team_id"], name: "index_players_on_team_id"
+  end
+
+  create_table "teams", force: :cascade do |t|
+    t.string "name", null: false
+    t.text "description"
+    t.string "country", limit: 2, default: "US"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["country"], name: "index_teams_on_country"
+    t.index ["name"], name: "index_teams_on_name", unique: true
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", null: false
     t.string "password_digest", null: false
@@ -22,4 +44,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_03_130916) do
     t.index ["email"], name: "index_users_on_email", unique: true
     t.check_constraint "daily_seminar_count >= 0 AND daily_seminar_count <= 25", name: "daily_seminar_count_range"
   end
+
+  add_foreign_key "players", "teams"
 end
