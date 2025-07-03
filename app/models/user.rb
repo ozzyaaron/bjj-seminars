@@ -13,6 +13,18 @@ class User < ApplicationRecord
 
   scope :admins, -> { where(admin: true) }
 
+  def self.authenticate_by(email:, password:)
+    user = find_by(email: email.downcase)
+    user&.authenticate(password)
+  end
+
+  def update_sign_in_info!(ip_address)
+    update_columns(
+      last_sign_in_at: Time.current,
+      last_sign_in_ip: ip_address
+    )
+  end
+
   def can_create_seminar?
     reset_daily_counters if new_day?
     daily_seminar_count < 25

@@ -7,7 +7,8 @@
       "Bash(git commit:*)",
       "Bash(bin/rails generate migration:*)",
       "Bash(bin/rails generate:*)",
-      "Bash(bin/rails:*)"
+      "Bash(bin/rails:*)",
+      "Bash(mkdir:*)"
     ],
     "deny": []
   }
