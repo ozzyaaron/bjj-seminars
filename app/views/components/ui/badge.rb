@@ -31,7 +31,7 @@ class UI::Badge < ApplicationComponent
 
   def variant_classes
     case variant
-    when :default
+    when :default, :gray
       "bg-gray-100 text-gray-800"
     when :primary
       "bg-indigo-100 text-indigo-800"
@@ -41,7 +41,13 @@ class UI::Badge < ApplicationComponent
       "bg-yellow-100 text-yellow-800"
     when :danger
       "bg-red-100 text-red-800"
-    when :info
+    when :info, :blue
+      "bg-blue-100 text-blue-800"
+    when :purple
+      "bg-purple-100 text-purple-800"
+    when :black
+      "bg-gray-900 text-white"
+    when :secondary
       "bg-blue-100 text-blue-800"
     else
       variant_classes(:default)

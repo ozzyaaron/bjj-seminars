@@ -16,9 +16,9 @@ class SeminarCardComponent < ApplicationComponent
 
   def seminar_image
     div(class: "aspect-w-16 aspect-h-9") do
-      if seminar.primary_image.attached?
+      if seminar.images.attached? && seminar.images.first.present?
         img(
-          src: rails_blob_url(seminar.primary_image.variant(resize_to_limit: [400, 225])),
+          src: rails_blob_url(seminar.images.first.variant(resize_to_limit: [400, 225])),
           alt: seminar.title,
           class: "w-full h-48 object-cover"
         )
