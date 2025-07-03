@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_07_03_131407) do
+ActiveRecord::Schema[8.0].define(version: 2025_07_03_133718) do
   create_table "players", force: :cascade do |t|
     t.string "name", null: false
     t.string "nationality", limit: 100, null: false
@@ -21,6 +21,17 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_03_131407) do
     t.index ["name"], name: "index_players_on_name"
     t.index ["nationality"], name: "index_players_on_nationality"
     t.index ["team_id"], name: "index_players_on_team_id"
+  end
+
+  create_table "seminar_images", force: :cascade do |t|
+    t.integer "seminar_id", null: false
+    t.integer "position", null: false
+    t.boolean "primary", default: false, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["seminar_id", "position"], name: "index_seminar_images_on_seminar_id_and_position", unique: true
+    t.index ["seminar_id"], name: "index_seminar_images_on_seminar_id"
+    t.index ["seminar_id"], name: "unique_primary_per_seminar", unique: true, where: "\"primary\" = true"
   end
 
   create_table "seminar_players", force: :cascade do |t|
@@ -81,6 +92,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_03_131407) do
   end
 
   add_foreign_key "players", "teams"
+  add_foreign_key "seminar_images", "seminars"
   add_foreign_key "seminar_players", "players"
   add_foreign_key "seminar_players", "seminars"
   add_foreign_key "seminars", "users"

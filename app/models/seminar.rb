@@ -52,6 +52,10 @@ class Seminar < ApplicationRecord
     seminar_images.find_by(primary: true)&.image
   end
 
+  def ordered_images
+    seminar_images.ordered.includes(image_attachment: :blob)
+  end
+
   private
 
   def starts_at_is_in_future
