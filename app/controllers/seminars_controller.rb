@@ -83,6 +83,6 @@ class SeminarsController < ApplicationController
   end
 
   def seminar_params
-    params.require(:seminar).permit(:title, :description, :starts_at, :address, :price, :max_participants, player_ids: [])
+    params.require(:seminar).permit(:title, :description, :starts_at, :address, :price, :max_participants, player_ids: [], images: [])
   end
 end

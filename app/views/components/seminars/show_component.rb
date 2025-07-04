@@ -69,15 +69,15 @@ class Seminars::ShowComponent < ApplicationComponent
   end
 
   def seminar_images
-    if seminar.images.attached?
+    if seminar.has_images?
       div(class: "mb-8") do
         div(class: "grid grid-cols-1 md:grid-cols-2 gap-4") do
-          seminar.images.each do |image|
-            div(class: "rounded-lg overflow-hidden") do
+          seminar.ordered_images.each do |image|
+            div(class: "rounded-lg overflow-hidden cursor-pointer", "data-controller": "image-modal") do
               img(
-                src: rails_blob_url(image.variant(resize_to_limit: [600, 400])),
+                src: rails_blob_url(image.variant(:large)),
                 alt: seminar.title,
-                class: "w-full h-64 object-cover"
+                class: "w-full h-64 object-cover hover:scale-105 transition-transform duration-200"
               )
             end
           end

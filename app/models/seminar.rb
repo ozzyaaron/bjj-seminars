@@ -4,6 +4,13 @@ class Seminar < ApplicationRecord
   has_many :players, through: :seminar_players
   has_many :seminar_images, dependent: :destroy
   has_many :notification_deliveries, dependent: :destroy
+  
+  # Active Storage attachments
+  has_many_attached :images do |attachable|
+    attachable.variant :thumb, resize_to_limit: [300, 200]
+    attachable.variant :medium, resize_to_limit: [600, 400]
+    attachable.variant :large, resize_to_limit: [1200, 800]
+  end
 
   geocoded_by :full_address
   after_validation :geocode, if: :address_changed?
@@ -17,6 +24,7 @@ class Seminar < ApplicationRecord
   validate :starts_at_is_in_future
   validate :ends_at_after_starts_at
   validate :user_can_create_seminar
+  validate :images_limit
 
   scope :upcoming, -> { where('starts_at > ?', Time.current) }
   scope :past, -> { where('starts_at < ?', Time.current) }
@@ -49,11 +57,24 @@ class Seminar < ApplicationRecord
   end
 
   def primary_image
-    seminar_images.find_by(primary: true)&.image
+    # Check Active Storage images first, then fall back to seminar_images
+    if images.attached? && images.any?
+      images.first
+    else
+      seminar_images.find_by(primary: true)&.image
+    end
   end
 
   def ordered_images
-    seminar_images.ordered.includes(image_attachment: :blob)
+    if images.attached? && images.any?
+      images
+    else
+      seminar_images.ordered.includes(image_attachment: :blob)
+    end
+  end
+
+  def has_images?
+    images.attached? && images.any?
   end
 
   private
@@ -81,5 +102,23 @@ class Seminar < ApplicationRecord
       changes.key?('zip_code') || 
       changes.key?('country')
     )
+  end
+
+  def images_limit
+    return unless images.attached?
+    
+    if images.count > 10
+      errors.add(:images, "cannot exceed 10 images per seminar")
+    end
+    
+    images.each do |image|
+      unless image.content_type.in?(%w[image/jpeg image/jpg image/png image/webp])
+        errors.add(:images, "must be JPEG, PNG, or WebP format")
+      end
+      
+      if image.byte_size > 5.megabytes
+        errors.add(:images, "cannot exceed 5MB per image")
+      end
+    end
   end
 end

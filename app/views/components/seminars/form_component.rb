@@ -47,10 +47,11 @@ class Seminars::FormComponent < ApplicationComponent
         div(class: "p-6") do
           render_errors if seminar.errors.any?
           
-          form_with(model: seminar, url: action_url, local: true, class: "space-y-6") do |form|
+          form_with(model: seminar, url: action_url, local: true, multipart: true, class: "space-y-6") do |form|
             basic_info_section(form)
             datetime_section(form)
             location_section(form)
+            images_section(form)
             instructors_section(form)
             additional_info_section(form)
             form_actions(form)
@@ -127,6 +128,45 @@ class Seminars::FormComponent < ApplicationComponent
         )
         render_field_errors(seminar.errors[:address])
         p(class: "mt-1 text-sm text-gray-500") { "We'll use this to show location on maps and help people find your seminar" }
+      end
+    end
+  end
+
+  def images_section(form)
+    div(class: "space-y-4") do
+      h2(class: "text-lg font-semibold text-gray-900") { "Images" }
+      
+      div("data-controller": "image-upload") do
+        label(for: "seminar_images", class: "block text-sm font-medium text-gray-700 mb-2") { "Seminar Images" }
+        input(
+          type: "file",
+          name: "seminar[images][]",
+          id: "seminar_images",
+          multiple: true,
+          accept: "image/jpeg,image/jpg,image/png,image/webp",
+          class: input_classes(seminar.errors[:images].present?),
+          "data-image-upload-target": "input"
+        )
+        render_field_errors(seminar.errors[:images])
+        p(class: "mt-1 text-sm text-gray-500") { "Upload up to 10 images (JPEG, PNG, WebP). Maximum 5MB per image." }
+        
+        # Show existing images for edit
+        if seminar.persisted? && seminar.has_images?
+          div(class: "mt-4") do
+            h3(class: "text-sm font-medium text-gray-700 mb-2") { "Current Images" }
+            div(class: "grid grid-cols-2 md:grid-cols-4 gap-3") do
+              seminar.images.each do |image|
+                div(class: "relative") do
+                  img(
+                    src: rails_blob_url(image.variant(:thumb)),
+                    alt: "Seminar image",
+                    class: "w-full h-24 object-cover rounded-md"
+                  )
+                end
+              end
+            end
+          end
+        end
       end
     end
   end
