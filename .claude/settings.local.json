@@ -8,7 +8,10 @@
       "Bash(bin/rails generate migration:*)",
       "Bash(bin/rails generate:*)",
       "Bash(bin/rails:*)",
-      "Bash(mkdir:*)"
+      "Bash(mkdir:*)",
+      "Bash(find:*)",
+      "Bash(bundle exec rspec:*)",
+      "Bash(bin/rspec --format documentation)"
     ],
     "deny": []
   }
