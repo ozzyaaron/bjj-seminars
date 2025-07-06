@@ -11,7 +11,8 @@
       "Bash(mkdir:*)",
       "Bash(find:*)",
       "Bash(bundle exec rspec:*)",
-      "Bash(bin/rspec --format documentation)"
+      "Bash(bin/rspec --format documentation)",
+      "Bash(chmod:*)"
     ],
     "deny": []
   }

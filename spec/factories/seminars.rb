@@ -10,7 +10,6 @@ FactoryBot.define do
     state { 'CA' }
     zip_code { Faker::Address.zip_code }
     country { 'US' }
-    price { Faker::Number.decimal(l_digits: 2, r_digits: 2) }
     max_participants { [20, 30, 50].sample }
     
     trait :past do
