@@ -34,10 +34,16 @@ class User < ApplicationRecord
     admin
   end
 
-  def increment_daily_seminar_count!
+  def name
+    email
+  end
+
+  def increment_seminar_count!
     increment!(:daily_seminar_count)
     update_column(:last_seminar_created_at, Time.current)
   end
+  
+  alias_method :increment_daily_seminar_count!, :increment_seminar_count!
 
   private
 
@@ -47,13 +53,22 @@ class User < ApplicationRecord
   end
 
   def new_day?
+    needs_counter_reset?
+  end
+  
+  def needs_counter_reset?
     last_seminar_created_at.nil? || last_seminar_created_at.to_date < Date.current
   end
 
   def reset_daily_counters
-    update_columns(
-      daily_seminar_count: 0,
-      last_seminar_created_at: Time.current
-    )
+    if persisted?
+      update_columns(
+        daily_seminar_count: 0,
+        last_seminar_created_at: Time.current
+      )
+    else
+      self.daily_seminar_count = 0
+      self.last_seminar_created_at = Time.current
+    end
   end
 end

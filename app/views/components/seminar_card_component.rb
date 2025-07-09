@@ -8,7 +8,7 @@ class SeminarCardComponent < ApplicationComponent
   attr_reader :seminar
 
   def view_template
-    render UI::CardComponent.new(class: "h-full") do
+    render UI::Card.new(class: "h-full") do
       seminar_image
       card_content
     end
@@ -128,13 +128,13 @@ class SeminarCardComponent < ApplicationComponent
         p(class: "text-sm font-medium text-gray-900 mb-2") { "Instructors:" }
         div(class: "flex flex-wrap gap-1") do
           seminar.players.limit(3).each do |player|
-            render UI::BadgeComponent.new(variant: "secondary", size: "sm") do
+            render UI::Badge.new(variant: "secondary", size: "sm") do
               player.name
             end
           end
           
           if seminar.players.count > 3
-            render UI::BadgeComponent.new(variant: "gray", size: "sm") do
+            render UI::Badge.new(variant: "gray", size: "sm") do
               "+#{seminar.players.count - 3} more"
             end
           end
@@ -149,7 +149,7 @@ class SeminarCardComponent < ApplicationComponent
         span { "by #{seminar.user.name}" }
       end
       
-      render UI::ButtonComponent.new(
+      render UI::Button.new(
         href: seminar_path(seminar),
         variant: "primary",
         size: "sm"

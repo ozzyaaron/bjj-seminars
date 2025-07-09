@@ -43,6 +43,12 @@ group :development, :test do
   # Static analysis for security vulnerabilities [https://brakemanscanner.org/]
   gem "brakeman", require: false
   
+  # Code quality and style checking
+  gem "rubocop", require: false
+  gem "rubocop-rails", require: false
+  gem "rubocop-capybara", require: false
+  gem "rubocop-rspec", require: false
+  
   # Testing framework
   gem "rspec-rails"
   gem "factory_bot_rails"
@@ -63,4 +69,10 @@ group :test do
   # Use system testing [https://guides.rubyonrails.org/testing.html#system-testing]
   gem "capybara"
   gem "selenium-webdriver"
+  
+  # Code coverage analysis
+  gem "simplecov", require: false
+  
+  # Database cleaning for tests
+  gem "database_cleaner-active_record"
 end

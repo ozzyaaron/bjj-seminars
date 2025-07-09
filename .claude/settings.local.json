@@ -12,7 +12,17 @@
       "Bash(find:*)",
       "Bash(bundle exec rspec:*)",
       "Bash(bin/rspec --format documentation)",
-      "Bash(chmod:*)"
+      "Bash(chmod:*)",
+      "Bash(bin/rspec --format progress)",
+      "Bash(bundle exec ruby:*)",
+      "Bash(rm:*)",
+      "Bash(ls:*)",
+      "Bash(cat:*)",
+      "Bash(bundle exec cucumber:*)",
+      "Bash(CUCUMBER_PUBLISH_QUIET=true bundle exec cucumber features/user_management.feature --format progress)",
+      "Bash(bin/rubocop:*)",
+      "Bash(bundle exec brakeman:*)",
+      "Bash(bin/start:*)"
     ],
     "deny": []
   }

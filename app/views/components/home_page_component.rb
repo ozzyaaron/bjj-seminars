@@ -29,7 +29,7 @@ class HomePageComponent < ApplicationComponent
 
           if user_signed_in?
             div(class: "mt-5 max-w-md mx-auto sm:flex sm:justify-center md:mt-8") do
-              render UI::ButtonComponent.new(
+              render UI::Button.new(
                 href: new_seminar_path,
                 variant: "primary",
                 size: "lg",
@@ -63,7 +63,7 @@ class HomePageComponent < ApplicationComponent
       end
 
       div(class: "mt-8 text-center") do
-        render UI::ButtonComponent.new(
+        render UI::Button.new(
           href: seminars_path,
           variant: "secondary"
         ) do
@@ -84,14 +84,14 @@ class HomePageComponent < ApplicationComponent
           "Create your account and start discovering amazing BJJ seminars in your area."
         end
         div(class: "mt-8 flex justify-center space-x-4") do
-          render UI::ButtonComponent.new(
+          render UI::Button.new(
             href: new_user_registration_path,
             variant: "primary",
             class: "bg-white text-indigo-600 hover:bg-gray-50"
           ) do
             "Get started"
           end
-          render UI::ButtonComponent.new(
+          render UI::Button.new(
             href: login_path,
             variant: "secondary",
             class: "border-white text-white hover:bg-indigo-600"

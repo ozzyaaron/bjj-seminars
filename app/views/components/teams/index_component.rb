@@ -25,7 +25,7 @@ class Teams::IndexComponent < ApplicationComponent
           end
           
           if admin_user?
-            render UI::ButtonComponent.new(
+            render UI::Button.new(
               href: new_team_path,
               variant: "primary"
             ) do
@@ -52,7 +52,7 @@ class Teams::IndexComponent < ApplicationComponent
               class: "flex-1 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
             )
             
-            render UI::ButtonComponent.new(
+            render UI::Button.new(
               type: "submit",
               variant: "primary"
             ) do
@@ -60,7 +60,7 @@ class Teams::IndexComponent < ApplicationComponent
             end
             
             if params[:search].present?
-              render UI::ButtonComponent.new(
+              render UI::Button.new(
                 href: teams_path,
                 variant: "secondary"
               ) do
@@ -107,7 +107,7 @@ class Teams::IndexComponent < ApplicationComponent
       
       if admin_user?
         div(class: "mt-6") do
-          render UI::ButtonComponent.new(
+          render UI::Button.new(
             href: new_team_path,
             variant: "primary"
           ) do

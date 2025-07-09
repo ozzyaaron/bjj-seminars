@@ -96,7 +96,7 @@ RSpec.describe 'Rate Limiting', type: :request do
       25.times do |i|
         post seminars_path, params: {
           seminar: {
-            title: \"Test Seminar #{i}\",
+            title: "Test Seminar #{i}",
             description: 'Test description for seminar',
             instructor_name: 'Test Instructor',
             instructor_belt: 'black',
@@ -115,7 +115,7 @@ RSpec.describe 'Rate Limiting', type: :request do
       26.times do |i|
         post seminars_path, params: {
           seminar: {
-            title: \"Test Seminar #{i}\",
+            title: "Test Seminar #{i}",
             description: 'Test description for seminar',
             instructor_name: 'Test Instructor',
             instructor_belt: 'black',

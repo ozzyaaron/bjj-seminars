@@ -28,7 +28,7 @@ class Teams::FormComponent < ApplicationComponent
             end
           end
           
-          render UI::ButtonComponent.new(
+          render UI::Button.new(
             href: team.persisted? ? team_path(team) : teams_path,
             variant: "secondary"
           ) do
@@ -41,7 +41,7 @@ class Teams::FormComponent < ApplicationComponent
 
   def form_content
     div(class: "max-w-2xl mx-auto py-8 px-4 sm:px-6 lg:px-8") do
-      render UI::CardComponent.new do
+      render UI::Card.new do
         div(class: "p-6") do
           render_errors if team.errors.any?
           
@@ -129,14 +129,14 @@ class Teams::FormComponent < ApplicationComponent
 
   def form_actions
     div(class: "flex justify-end space-x-3 pt-6 border-t border-gray-200") do
-      render UI::ButtonComponent.new(
+      render UI::Button.new(
         href: team.persisted? ? team_path(team) : teams_path,
         variant: "secondary"
       ) do
         "Cancel"
       end
       
-      render UI::ButtonComponent.new(
+      render UI::Button.new(
         type: "submit",
         variant: "primary"
       ) do

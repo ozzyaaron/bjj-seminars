@@ -27,7 +27,7 @@ class Players::IndexComponent < ApplicationComponent
           end
           
           if admin_user?
-            render UI::ButtonComponent.new(
+            render UI::Button.new(
               href: new_player_path,
               variant: "primary"
             ) do
@@ -86,7 +86,7 @@ class Players::IndexComponent < ApplicationComponent
         
         div(class: "mt-4 flex justify-end space-x-3") do
           if params[:search].present? || params[:team_id].present? || params[:belt_rank].present?
-            render UI::ButtonComponent.new(
+            render UI::Button.new(
               href: players_path,
               variant: "secondary"
             ) do
@@ -94,7 +94,7 @@ class Players::IndexComponent < ApplicationComponent
             end
           end
           
-          render UI::ButtonComponent.new(
+          render UI::Button.new(
             type: "submit",
             variant: "primary"
           ) do
@@ -139,7 +139,7 @@ class Players::IndexComponent < ApplicationComponent
       
       if admin_user?
         div(class: "mt-6") do
-          render UI::ButtonComponent.new(
+          render UI::Button.new(
             href: new_player_path,
             variant: "primary"
           ) do

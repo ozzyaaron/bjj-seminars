@@ -97,13 +97,14 @@ Then('I should see form sections for basic information, date & time, location, i
   expect(page).to have_content("Instructors")
 end
 
-Given('I am signed in as an admin user') do
-  @current_admin = FactoryBot.create(:user, :admin)
-  visit login_path
-  fill_in 'Email address', with: @current_admin.email
-  fill_in 'Password', with: 'password123'
-  click_button 'Sign in'
-end
+# Moved to user_management_steps.rb to avoid ambiguity
+# Given('I am signed in as an admin user') do
+#   @current_admin = FactoryBot.create(:user, :admin)
+#   visit login_path
+#   fill_in 'Email address', with: @current_admin.email
+#   fill_in 'Password', with: 'password123'
+#   click_button 'Sign in'
+# end
 
 When('I visit the new team page') do
   visit new_team_path

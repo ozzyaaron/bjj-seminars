@@ -25,7 +25,7 @@ class Players::ShowComponent < ApplicationComponent
             div do
               h1(class: "text-3xl font-bold text-gray-900") { player.name }
               div(class: "flex items-center space-x-3 mt-2") do
-                render UI::ButtonComponent.new(
+                render UI::Button.new(
                   href: team_path(player.team),
                   variant: "link",
                   size: "sm"
@@ -34,7 +34,7 @@ class Players::ShowComponent < ApplicationComponent
                 end
                 
                 if player.belt_rank.present?
-                  render UI::BadgeComponent.new(
+                  render UI::Badge.new(
                     variant: belt_color(player.belt_rank),
                     size: "sm"
                   ) do
@@ -47,14 +47,14 @@ class Players::ShowComponent < ApplicationComponent
           
           if admin_user?
             div(class: "flex space-x-3") do
-              render UI::ButtonComponent.new(
+              render UI::Button.new(
                 href: edit_player_path(player),
                 variant: "secondary"
               ) do
                 "Edit Player"
               end
               
-              render UI::ButtonComponent.new(
+              render UI::Button.new(
                 href: player_path(player),
                 method: :delete,
                 variant: "danger",
@@ -87,7 +87,7 @@ class Players::ShowComponent < ApplicationComponent
   end
 
   def player_biography
-    render UI::CardComponent.new do
+    render UI::Card.new do
       div(class: "p-6") do
         h2(class: "text-2xl font-bold text-gray-900 mb-4") { "Biography" }
         div(class: "prose max-w-none text-gray-700") do
@@ -98,7 +98,7 @@ class Players::ShowComponent < ApplicationComponent
   end
 
   def upcoming_seminars_section
-    render UI::CardComponent.new do
+    render UI::Card.new do
       div(class: "p-6") do
         h2(class: "text-2xl font-bold text-gray-900 mb-6") { "Upcoming Seminars" }
         
@@ -112,7 +112,7 @@ class Players::ShowComponent < ApplicationComponent
   end
 
   def past_seminars_section
-    render UI::CardComponent.new do
+    render UI::Card.new do
       div(class: "p-6") do
         h2(class: "text-2xl font-bold text-gray-900 mb-6") { "Past Seminars" }
         
@@ -133,7 +133,7 @@ class Players::ShowComponent < ApplicationComponent
   end
 
   def player_stats_card
-    render UI::CardComponent.new do
+    render UI::Card.new do
       div(class: "p-6") do
         h3(class: "text-lg font-semibold text-gray-900 mb-4") { "Player Stats" }
         
@@ -147,7 +147,7 @@ class Players::ShowComponent < ApplicationComponent
   end
 
   def player_info_card
-    render UI::CardComponent.new do
+    render UI::Card.new do
       div(class: "p-6") do
         h3(class: "text-lg font-semibold text-gray-900 mb-4") { "Player Information" }
         
@@ -155,7 +155,7 @@ class Players::ShowComponent < ApplicationComponent
           div do
             span(class: "text-sm font-medium text-gray-500") { "Team" }
             div(class: "mt-1") do
-              render UI::ButtonComponent.new(
+              render UI::Button.new(
                 href: team_path(player.team),
                 variant: "link",
                 size: "sm"
@@ -169,7 +169,7 @@ class Players::ShowComponent < ApplicationComponent
             div do
               span(class: "text-sm font-medium text-gray-500") { "Belt Rank" }
               div(class: "mt-1") do
-                render UI::BadgeComponent.new(
+                render UI::Badge.new(
                   variant: belt_color(player.belt_rank),
                   size: "sm"
                 ) do

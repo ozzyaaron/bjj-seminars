@@ -29,14 +29,14 @@ class Seminars::ShowComponent < ApplicationComponent
           
           if can_edit_seminar?
             div(class: "flex space-x-3") do
-              render UI::ButtonComponent.new(
+              render UI::Button.new(
                 href: edit_seminar_path(seminar),
                 variant: "secondary"
               ) do
                 "Edit"
               end
               
-              render UI::ButtonComponent.new(
+              render UI::Button.new(
                 href: seminar_path(seminar),
                 method: :delete,
                 variant: "danger",
@@ -118,7 +118,7 @@ class Seminars::ShowComponent < ApplicationComponent
   end
 
   def seminar_details_card
-    render UI::CardComponent.new do
+    render UI::Card.new do
       div(class: "p-6") do
         h3(class: "text-lg font-semibold text-gray-900 mb-4") { "Seminar Details" }
         
@@ -140,7 +140,7 @@ class Seminars::ShowComponent < ApplicationComponent
   end
 
   def seminar_location_card
-    render UI::CardComponent.new do
+    render UI::Card.new do
       div(class: "p-6") do
         h3(class: "text-lg font-semibold text-gray-900 mb-4") { "Location" }
         

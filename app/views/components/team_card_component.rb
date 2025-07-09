@@ -8,7 +8,7 @@ class TeamCardComponent < ApplicationComponent
   attr_reader :team
 
   def view_template
-    render UI::CardComponent.new(class: "h-full hover:shadow-lg transition-shadow duration-200") do
+    render UI::Card.new(class: "h-full hover:shadow-lg transition-shadow duration-200") do
       div(class: "p-6") do
         team_header
         team_details
@@ -95,7 +95,7 @@ class TeamCardComponent < ApplicationComponent
         "Added #{time_ago_in_words(team.created_at)} ago"
       end
       
-      render UI::ButtonComponent.new(
+      render UI::Button.new(
         href: team_path(team),
         variant: "primary",
         size: "sm"

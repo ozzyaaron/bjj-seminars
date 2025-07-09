@@ -30,7 +30,7 @@ class Seminars::FormComponent < ApplicationComponent
             end
           end
           
-          render UI::ButtonComponent.new(
+          render UI::Button.new(
             href: seminar.persisted? ? seminar_path(seminar) : seminars_path,
             variant: "secondary"
           ) do
@@ -43,7 +43,7 @@ class Seminars::FormComponent < ApplicationComponent
 
   def form_content
     div(class: "max-w-4xl mx-auto py-8 px-4 sm:px-6 lg:px-8") do
-      render UI::CardComponent.new do
+      render UI::Card.new do
         div(class: "p-6") do
           render RateLimitStatusComponent.new
           render_errors if seminar.errors.any?
@@ -242,14 +242,14 @@ class Seminars::FormComponent < ApplicationComponent
 
   def form_actions(form)
     div(class: "flex justify-end space-x-3 pt-6 border-t border-gray-200") do
-      render UI::ButtonComponent.new(
+      render UI::Button.new(
         href: seminar.persisted? ? seminar_path(seminar) : seminars_path,
         variant: "secondary"
       ) do
         "Cancel"
       end
       
-      render UI::ButtonComponent.new(
+      render UI::Button.new(
         type: "submit",
         variant: "primary"
       ) do

@@ -48,13 +48,14 @@ Then('I should see a {string} link') do |link_text|
   expect(page).to have_link(link_text)
 end
 
-Given('I am signed in as a regular user') do
-  @current_user = FactoryBot.create(:user)
-  visit login_path
-  fill_in 'Email address', with: @current_user.email
-  fill_in 'Password', with: 'password123'
-  click_button 'Sign in'
-end
+# Moved to user_management_steps.rb to avoid ambiguity
+# Given('I am signed in as a regular user') do
+#   @current_user = FactoryBot.create(:user)
+#   visit login_path
+#   fill_in 'Email address', with: @current_user.email
+#   fill_in 'Password', with: 'password123'
+#   click_button 'Sign in'
+# end
 
 Then('I should see an {string} button') do |button_text|
   expect(page).to have_link(button_text)

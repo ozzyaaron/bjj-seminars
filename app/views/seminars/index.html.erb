@@ -1,1 +1,1 @@
-<%= render Seminars::IndexComponent.new(seminars: @seminars) %>
+<%= render Components::Seminars::IndexComponent.new(seminars: @seminars, search_params: params.permit(:search, :location, :instructor)) %>

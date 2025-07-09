@@ -98,7 +98,7 @@ class Auth::RegistrationFormComponent < ApplicationComponent
       end
 
       div do
-        render UI::ButtonComponent.new(
+        render UI::Button.new(
           type: "submit",
           variant: "primary",
           size: "lg", 

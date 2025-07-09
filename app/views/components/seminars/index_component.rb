@@ -25,7 +25,7 @@ class Seminars::IndexComponent < ApplicationComponent
           end
           
           if user_signed_in?
-            render UI::ButtonComponent.new(
+            render UI::Button.new(
               href: new_seminar_path,
               variant: "primary"
             ) do
@@ -80,7 +80,7 @@ class Seminars::IndexComponent < ApplicationComponent
         
         div(class: "mt-4 flex justify-end space-x-3") do
           if params[:search].present? || params[:location].present? || params[:instructor].present?
-            render UI::ButtonComponent.new(
+            render UI::Button.new(
               href: seminars_path,
               variant: "secondary"
             ) do
@@ -88,7 +88,7 @@ class Seminars::IndexComponent < ApplicationComponent
             end
           end
           
-          render UI::ButtonComponent.new(
+          render UI::Button.new(
             type: "submit",
             variant: "primary"
           ) do
@@ -133,7 +133,7 @@ class Seminars::IndexComponent < ApplicationComponent
       
       if user_signed_in?
         div(class: "mt-6") do
-          render UI::ButtonComponent.new(
+          render UI::Button.new(
             href: new_seminar_path,
             variant: "primary"
           ) do

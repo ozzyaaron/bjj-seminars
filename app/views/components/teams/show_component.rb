@@ -45,14 +45,14 @@ class Teams::ShowComponent < ApplicationComponent
           
           if admin_user?
             div(class: "flex space-x-3") do
-              render UI::ButtonComponent.new(
+              render UI::Button.new(
                 href: edit_team_path(team),
                 variant: "secondary"
               ) do
                 "Edit Team"
               end
               
-              render UI::ButtonComponent.new(
+              render UI::Button.new(
                 href: team_path(team),
                 method: :delete,
                 variant: "danger",
@@ -85,7 +85,7 @@ class Teams::ShowComponent < ApplicationComponent
   end
 
   def team_description
-    render UI::CardComponent.new do
+    render UI::Card.new do
       div(class: "p-6") do
         h2(class: "text-2xl font-bold text-gray-900 mb-4") { "About #{team.name}" }
         div(class: "prose max-w-none text-gray-700") do
@@ -96,12 +96,12 @@ class Teams::ShowComponent < ApplicationComponent
   end
 
   def team_players
-    render UI::CardComponent.new do
+    render UI::Card.new do
       div(class: "p-6") do
         div(class: "flex justify-between items-center mb-6") do
           h2(class: "text-2xl font-bold text-gray-900") { "Team Members" }
           if admin_user?
-            render UI::ButtonComponent.new(
+            render UI::Button.new(
               href: new_player_path(team_id: team.id),
               variant: "primary",
               size: "sm"
@@ -122,7 +122,7 @@ class Teams::ShowComponent < ApplicationComponent
             p(class: "text-gray-500") { "No players found for this team." }
             if admin_user?
               div(class: "mt-4") do
-                render UI::ButtonComponent.new(
+                render UI::Button.new(
                   href: new_player_path(team_id: team.id),
                   variant: "primary"
                 ) do
@@ -137,7 +137,7 @@ class Teams::ShowComponent < ApplicationComponent
   end
 
   def recent_seminars_section
-    render UI::CardComponent.new do
+    render UI::Card.new do
       div(class: "p-6") do
         h2(class: "text-2xl font-bold text-gray-900 mb-6") { "Recent Seminars" }
         
@@ -149,7 +149,7 @@ class Teams::ShowComponent < ApplicationComponent
         
         if recent_seminars.count >= 6
           div(class: "mt-6 text-center") do
-            render UI::ButtonComponent.new(
+            render UI::Button.new(
               href: seminars_path(team_id: team.id),
               variant: "secondary"
             ) do
@@ -169,7 +169,7 @@ class Teams::ShowComponent < ApplicationComponent
   end
 
   def team_stats_card
-    render UI::CardComponent.new do
+    render UI::Card.new do
       div(class: "p-6") do
         h3(class: "text-lg font-semibold text-gray-900 mb-4") { "Team Stats" }
         
@@ -190,7 +190,7 @@ class Teams::ShowComponent < ApplicationComponent
   end
 
   def team_info_card
-    render UI::CardComponent.new do
+    render UI::Card.new do
       div(class: "p-6") do
         h3(class: "text-lg font-semibold text-gray-900 mb-4") { "Team Information" }
         

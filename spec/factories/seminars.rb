@@ -10,7 +10,6 @@ FactoryBot.define do
     state { 'CA' }
     zip_code { Faker::Address.zip_code }
     country { 'US' }
-    max_participants { [20, 30, 50].sample }
     
     trait :past do
       starts_at { Faker::Date.between(from: 6.months.ago, to: 1.day.ago) }

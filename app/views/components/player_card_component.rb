@@ -8,7 +8,7 @@ class PlayerCardComponent < ApplicationComponent
   attr_reader :player
 
   def view_template
-    render UI::CardComponent.new(class: "h-full") do
+    render UI::Card.new(class: "h-full") do
       div(class: "p-4") do
         div(class: "flex items-center space-x-3") do
           player_avatar
@@ -37,7 +37,7 @@ class PlayerCardComponent < ApplicationComponent
         
         if player.belt_rank.present?
           span(class: "mx-1") { "•" }
-          render UI::BadgeComponent.new(
+          render UI::Badge.new(
             variant: belt_color(player.belt_rank),
             size: "sm"
           ) do

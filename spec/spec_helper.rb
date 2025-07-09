@@ -13,6 +13,35 @@
 # it.
 #
 # See https://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
+
+# Code coverage setup
+require 'simplecov'
+SimpleCov.start 'rails' do
+  add_filter '/spec/'
+  add_filter '/config/'
+  add_filter '/db/'
+  add_filter '/vendor/'
+  add_filter '/tmp/'
+  add_filter '/log/'
+  add_filter '/public/'
+  add_filter '/storage/'
+  add_filter '/bin/'
+  add_filter '/lib/tasks/'
+  
+  # Track only the app directory
+  track_files 'app/**/*.rb'
+  
+  # Set minimum coverage to 90%
+  minimum_coverage 90
+  
+  # Enable terminal output
+  formatters = [
+    SimpleCov::Formatter::HTMLFormatter,
+    SimpleCov::Formatter::SimpleFormatter
+  ]
+  
+  SimpleCov.formatter = SimpleCov::Formatter::MultiFormatter.new(formatters)
+end
 RSpec.configure do |config|
   # rspec-expectations config goes here. You can use an alternate
   # assertion/expectation library such as wrong or the stdlib/minitest

@@ -1,6 +1,6 @@
 class RateLimitsInfoComponent < ApplicationComponent
   def view_template
-    render UI::CardComponent.new do
+    render UI::Card.new do
       div(class: "p-6") do
         h2(class: "text-2xl font-bold text-gray-900 mb-4") { "Rate Limits & Fair Usage" }
         
