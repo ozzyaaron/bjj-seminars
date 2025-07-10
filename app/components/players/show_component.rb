@@ -1,4 +1,4 @@
-class Players::ShowComponent < ApplicationComponent
+class Components::Players::ShowComponent < Components::ApplicationComponent
   def initialize(player:, upcoming_seminars:, past_seminars:)
     @player = player
     @upcoming_seminars = upcoming_seminars

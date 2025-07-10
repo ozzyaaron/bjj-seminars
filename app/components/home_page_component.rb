@@ -1,4 +1,4 @@
-class HomePageComponent < ApplicationComponent
+class Components::HomePageComponent < Components::ApplicationComponent
   def initialize(recent_seminars:)
     @recent_seminars = recent_seminars
   end

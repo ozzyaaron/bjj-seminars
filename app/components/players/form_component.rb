@@ -1,4 +1,4 @@
-class Players::FormComponent < ApplicationComponent
+class Components::Players::FormComponent < Components::ApplicationComponent
   def initialize(player:, teams:, action_url: nil)
     @player = player
     @teams = teams

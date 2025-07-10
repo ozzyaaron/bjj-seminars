@@ -1,4 +1,4 @@
-class RateLimitStatusComponent < ApplicationComponent
+class Components::RateLimitStatusComponent < Components::ApplicationComponent
   include RateLimitHelper
 
   def view_template

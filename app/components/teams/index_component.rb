@@ -1,4 +1,4 @@
-class Teams::IndexComponent < ApplicationComponent
+class Components::Teams::IndexComponent < Components::ApplicationComponent
   def initialize(teams:)
     @teams = teams
   end
@@ -78,7 +78,7 @@ class Teams::IndexComponent < ApplicationComponent
       if teams.any?
         div(class: "grid gap-6 sm:grid-cols-2 lg:grid-cols-3") do
           teams.each do |team|
-            render TeamCardComponent.new(team: team)
+            render Components::TeamCardComponent.new(team: team)
           end
         end
       else

@@ -1,4 +1,4 @@
-class RateLimitsInfoComponent < ApplicationComponent
+class Components::RateLimitsInfoComponent < Components::ApplicationComponent
   def view_template
     render Components::UI::Card.new do
       div(class: "p-6") do

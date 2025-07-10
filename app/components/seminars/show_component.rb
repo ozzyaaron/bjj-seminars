@@ -1,4 +1,4 @@
-class Seminars::ShowComponent < ApplicationComponent
+class Components::Seminars::ShowComponent < Components::ApplicationComponent
   def initialize(seminar:, related_seminars: [])
     @seminar = seminar
     @related_seminars = related_seminars
@@ -103,7 +103,7 @@ class Seminars::ShowComponent < ApplicationComponent
         h2(class: "text-2xl font-bold text-gray-900 mb-4") { "Instructors" }
         div(class: "grid grid-cols-1 md:grid-cols-2 gap-4") do
           seminar.players.each do |player|
-            render PlayerCardComponent.new(player: player)
+            render Components::PlayerCardComponent.new(player: player)
           end
         end
       end

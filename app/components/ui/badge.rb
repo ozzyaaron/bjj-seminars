@@ -1,4 +1,4 @@
-class UI::Badge < ApplicationComponent
+class Components::UI::Badge < Components::ApplicationComponent
   def initialize(
     variant: :default,
     size: :base,

@@ -1,4 +1,4 @@
-class Teams::FormComponent < ApplicationComponent
+class Components::Teams::FormComponent < Components::ApplicationComponent
   def initialize(team:, action_url: nil)
     @team = team
     @action_url = action_url || (team.persisted? ? team_path(team) : teams_path)

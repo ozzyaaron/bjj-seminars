@@ -1,4 +1,4 @@
-class UI::Card < ApplicationComponent
+class Components::UI::Card < Components::ApplicationComponent
   def initialize(
     padding: :base,
     shadow: :base,

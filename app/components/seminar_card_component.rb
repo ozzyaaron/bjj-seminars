@@ -1,4 +1,4 @@
-class SeminarCardComponent < ApplicationComponent
+class Components::SeminarCardComponent < Components::ApplicationComponent
   def initialize(seminar:)
     @seminar = seminar
   end

@@ -1,4 +1,4 @@
-class PlayerCardComponent < ApplicationComponent
+class Components::PlayerCardComponent < Components::ApplicationComponent
   def initialize(player:)
     @player = player
   end

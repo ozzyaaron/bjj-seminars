@@ -1,4 +1,4 @@
-class Seminars::IndexComponent < ApplicationComponent
+class Components::Seminars::IndexComponent < Components::ApplicationComponent
   def initialize(seminars:, search_params: {})
     @seminars = seminars
     @search_params = search_params

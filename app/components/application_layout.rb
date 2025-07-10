@@ -1,4 +1,4 @@
-class ApplicationLayout < ApplicationComponent
+class Components::ApplicationLayout < Components::ApplicationComponent
   include Phlex::Rails::Layout
 
   def initialize(title: "BJJ Seminar Tracker")
@@ -37,14 +37,14 @@ class ApplicationLayout < ApplicationComponent
 
       body(class: "h-full") do
         div(class: "min-h-full") do
-          render NavbarComponent.new
+          render Components::NavbarComponent.new
           
           main do
-            render FlashMessagesComponent.new if flash.any?
+            render Components::FlashMessagesComponent.new if flash.any?
             yield_content(&block)
           end
           
-          render FooterComponent.new
+          render Components::FooterComponent.new
         end
 
         # Service worker registration

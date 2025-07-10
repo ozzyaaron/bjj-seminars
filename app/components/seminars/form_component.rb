@@ -1,4 +1,4 @@
-class Seminars::FormComponent < ApplicationComponent
+class Components::Seminars::FormComponent < Components::ApplicationComponent
   def initialize(seminar:, teams:, players:, action_url: nil)
     @seminar = seminar
     @teams = teams
@@ -45,7 +45,7 @@ class Seminars::FormComponent < ApplicationComponent
     div(class: "max-w-4xl mx-auto py-8 px-4 sm:px-6 lg:px-8") do
       render Components::UI::Card.new do
         div(class: "p-6") do
-          render RateLimitStatusComponent.new
+          render Components::RateLimitStatusComponent.new
           render_errors if seminar.errors.any?
           
           form_with(model: seminar, url: action_url, local: true, multipart: true, class: "space-y-6") do |form|

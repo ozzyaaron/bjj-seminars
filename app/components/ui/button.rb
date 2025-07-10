@@ -1,4 +1,4 @@
-class UI::Button < ApplicationComponent
+class Components::UI::Button < Components::ApplicationComponent
   def initialize(
     variant: :primary,
     size: :base,

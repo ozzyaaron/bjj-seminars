@@ -1,4 +1,4 @@
-class FlashMessagesComponent < ApplicationComponent
+class Components::FlashMessagesComponent < Components::ApplicationComponent
   def template
     return unless flash.any?
 

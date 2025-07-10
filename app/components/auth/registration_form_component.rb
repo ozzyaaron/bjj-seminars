@@ -1,4 +1,4 @@
-class Auth::RegistrationFormComponent < ApplicationComponent
+class Components::Auth::RegistrationFormComponent < Components::ApplicationComponent
   def initialize(user:, action_url: nil)
     @user = user
     @action_url = action_url

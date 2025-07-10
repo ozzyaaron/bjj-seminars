@@ -1,4 +1,4 @@
-class Teams::ShowComponent < ApplicationComponent
+class Components::Teams::ShowComponent < Components::ApplicationComponent
   def initialize(team:, players:, recent_seminars:)
     @team = team
     @players = players
@@ -114,7 +114,7 @@ class Teams::ShowComponent < ApplicationComponent
         if players.any?
           div(class: "grid grid-cols-1 md:grid-cols-2 gap-4") do
             players.each do |player|
-              render PlayerCardComponent.new(player: player)
+              render Components::PlayerCardComponent.new(player: player)
             end
           end
         else

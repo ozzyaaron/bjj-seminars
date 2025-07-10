@@ -17,7 +17,7 @@ module BjjSeminarTracker
     config.autoload_lib(ignore: %w[assets tasks])
     
     # Autoload Phlex components
-    config.autoload_paths << Rails.root.join("app/views/components")
+    config.autoload_paths << Rails.root.join("app/components")
 
     # Configuration for the application, engines, and railties goes here.
     #

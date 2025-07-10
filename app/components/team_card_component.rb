@@ -1,4 +1,4 @@
-class TeamCardComponent < ApplicationComponent
+class Components::TeamCardComponent < Components::ApplicationComponent
   def initialize(team:)
     @team = team
   end
