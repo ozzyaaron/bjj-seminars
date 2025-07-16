@@ -73,27 +73,27 @@ class Components::UI::Button < Components::ApplicationComponent
   end
 
   def base_classes
-    "inline-flex items-center justify-center font-medium rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2"
+    "btn"
   end
 
   def variant_classes
     case variant
     when :primary
-      "bg-indigo-600 text-white hover:bg-indigo-700 focus:ring-indigo-500"
+      "btn-primary"
     when :secondary
-      "bg-gray-200 text-gray-900 hover:bg-gray-300 focus:ring-gray-500"
+      "btn-secondary"
     when :success
-      "bg-green-600 text-white hover:bg-green-700 focus:ring-green-500"
+      "btn-success"
     when :danger
-      "bg-red-600 text-white hover:bg-red-700 focus:ring-red-500"
+      "btn-danger"
     when :warning
-      "bg-yellow-600 text-white hover:bg-yellow-700 focus:ring-yellow-500"
+      "btn-warning"
     when :outline
-      "border border-gray-300 bg-white text-gray-700 hover:bg-gray-50 focus:ring-indigo-500"
+      "btn-outline-primary"
     when :ghost
-      "text-gray-700 hover:bg-gray-100 focus:ring-gray-500"
+      "btn-outline-secondary"
     when :link
-      "text-indigo-600 hover:text-indigo-500 focus:ring-indigo-500"
+      "btn-link"
     else
       variant_classes(:primary)
     end
@@ -102,26 +102,22 @@ class Components::UI::Button < Components::ApplicationComponent
   def size_classes
     case size
     when :xs
-      "px-2.5 py-1.5 text-xs"
+      "btn-sm"
     when :sm
-      "px-3 py-2 text-sm"
+      "btn-sm"
     when :base
-      "px-4 py-2 text-sm"
+      ""
     when :lg
-      "px-4 py-2 text-base"
+      "btn-lg"
     when :xl
-      "px-6 py-3 text-base"
+      "btn-lg"
     else
       size_classes(:base)
     end
   end
 
   def disabled_classes
-    if disabled
-      "opacity-50 cursor-not-allowed"
-    else
-      "cursor-pointer"
-    end
+    disabled ? "disabled" : ""
   end
 
   def confirmation_attributes

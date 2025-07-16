@@ -10,18 +10,26 @@ class SeminarsController < ApplicationController
     
     # Apply search and filters if present
     if params[:search].present?
+      search_term = "%#{params[:search]}%"
+      seminars_table = Seminar.arel_table
+      players_table = Player.arel_table
+      
       @seminars = @seminars.joins(:players)
-                          .where("seminars.title ILIKE ? OR seminars.description ILIKE ? OR seminars.address ILIKE ? OR players.name ILIKE ?", 
-                                 "%#{params[:search]}%", "%#{params[:search]}%", "%#{params[:search]}%", "%#{params[:search]}%")
+                          .where(
+                            seminars_table[:title].matches(search_term)
+                            .or(seminars_table[:description].matches(search_term))
+                            .or(seminars_table[:address].matches(search_term))
+                            .or(players_table[:name].matches(search_term))
+                          )
                           .distinct
     end
     
     if params[:location].present?
-      @seminars = @seminars.where("address ILIKE ?", "%#{params[:location]}%")
+      @seminars = @seminars.where(Seminar.arel_table[:address].matches("%#{params[:location]}%"))
     end
     
     if params[:instructor].present?
-      @seminars = @seminars.joins(:players).where("players.name ILIKE ?", "%#{params[:instructor]}%")
+      @seminars = @seminars.joins(:players).where(Player.arel_table[:name].matches("%#{params[:instructor]}%"))
     end
   end
 

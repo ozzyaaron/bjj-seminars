@@ -1,4 +1,5 @@
 class Components::Seminars::IndexComponent < Components::ApplicationComponent
+  include Phlex::Rails::Helpers::TurboFrameTag
   def initialize(seminars:, search_params: {}, players: [])
     @seminars = seminars
     @search_params = search_params
@@ -10,23 +11,23 @@ class Components::Seminars::IndexComponent < Components::ApplicationComponent
   attr_reader :seminars, :search_params, :players
 
   def view_template
-    div(class: "min-h-screen bg-gray-50") do
+    div(class: "min-vh-100 bg-light") do
       render_hero_section
       render_main_content
     end
   end
 
   def render_hero_section
-    div(class: "bg-gradient-to-br from-blue-50 to-indigo-100 pb-16") do
-      div(class: "max-w-7xl mx-auto pt-8 pb-8 px-4 sm:px-6 lg:px-8") do
-        div(class: "text-center mb-8") do
-          h1(class: "text-4xl font-bold text-gray-900 mb-4") { "Find Your Next BJJ Seminar" }
-          p(class: "text-xl text-gray-600 max-w-2xl mx-auto") do
+    div(class: "bg-primary text-white pb-5") do
+      div(class: "container-fluid py-4 px-3 px-md-4") do
+        div(class: "text-center mb-4") do
+          h1(class: "display-4 fw-bold mb-4") { "Find Your Next BJJ Seminar" }
+          p(class: "lead mx-auto", style: "max-width: 48rem;") do
             "Discover world-class Brazilian Jiu-Jitsu seminars with top instructors near you"
           end
         end
         
-        div(class: "max-w-2xl mx-auto") do
+        div(class: "mx-auto", style: "max-width: 48rem;") do
           render Components::Seminars::SearchBarComponent.new(
             search_params: search_params,
             placeholder: "Search by location, instructor, or topic..."
@@ -34,7 +35,7 @@ class Components::Seminars::IndexComponent < Components::ApplicationComponent
         end
         
         if user_signed_in?
-          div(class: "text-center mt-6") do
+          div(class: "text-center mt-4") do
             render Components::UI::Button.new(
               href: new_seminar_path,
               variant: "primary"
@@ -48,8 +49,8 @@ class Components::Seminars::IndexComponent < Components::ApplicationComponent
   end
 
   def render_main_content
-    div(class: "max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8") do
-      div(class: "lg:grid lg:grid-cols-4 lg:gap-8") do
+    div(class: "container-fluid px-3 px-md-4 py-4") do
+      div(class: "row") do
         render_filter_sidebar
         render_seminars_section
       end
@@ -57,45 +58,46 @@ class Components::Seminars::IndexComponent < Components::ApplicationComponent
   end
 
   def render_filter_sidebar
-    div(class: "hidden lg:block lg:col-span-1") do
-      div(class: "sticky top-8") do
+    div(class: "d-none d-lg-block col-lg-3") do
+      div(class: "sticky-top", style: "top: 2rem;") do
         render Components::Seminars::FilterPanelComponent.new(
           filters: search_params,
-          players: players
+          players: players,
+          form_url: seminars_path
         )
       end
     end
   end
 
   def render_seminars_section
-    div(class: "lg:col-span-3") do
+    div(class: "col-lg-9") do
       render_results_header
       render_seminars_content
     end
   end
 
   def render_results_header
-    div(class: "flex items-center justify-between mb-6") do
+    div(class: "d-flex align-items-center justify-content-between mb-4") do
       div do
         if search_params.values.any?(&:present?)
-          p(class: "text-sm text-gray-600") do
+          p(class: "small text-muted mb-0") do
             "#{seminars.count} seminar#{'s' unless seminars.count == 1} found"
           end
         else
-          p(class: "text-sm text-gray-600") do
+          p(class: "small text-muted mb-0") do
             "Showing all #{seminars.count} seminar#{'s' unless seminars.count == 1}"
           end
         end
       end
       
       # View toggle buttons (grid/list view)
-      div(class: "flex items-center space-x-2") do
+      div(class: "d-flex align-items-center gap-2") do
         button(
           type: "button",
-          class: "p-2 text-gray-400 hover:text-gray-600 transition-colors duration-200",
+          class: "btn btn-sm btn-outline-secondary p-2",
           data: { action: "click->seminars-view#setGridView" }
         ) do
-          svg(class: "w-5 h-5", fill: "currentColor", viewBox: "0 0 20 20") do |s|
+          svg(width: "20", height: "20", fill: "currentColor", viewBox: "0 0 20 20") do |s|
             s.path(d: "M5 3a2 2 0 00-2 2v2a2 2 0 002 2h2a2 2 0 002-2V5a2 2 0 00-2-2H5zM5 11a2 2 0 00-2 2v2a2 2 0 002 2h2a2 2 0 002-2v-2a2 2 0 00-2-2H5zM11 5a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V5zM11 13a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z")
           end
         end
@@ -115,19 +117,23 @@ class Components::Seminars::IndexComponent < Components::ApplicationComponent
 
   def render_seminars_grid
     div(
-      class: "grid gap-6 sm:grid-cols-2 xl:grid-cols-3",
+      class: "row row-cols-1 row-cols-sm-2 row-cols-xl-3 g-4",
       data: { controller: "seminars-view", seminars_view_target: "grid" }
     ) do
       seminars.each do |seminar|
-        render Components::Seminars::CardComponent.new(seminar: seminar)
+        div(class: "col") do
+          render Components::Seminars::CardComponent.new(seminar: seminar)
+        end
       end
     end
   end
 
   def render_empty_state
-    div(class: "text-center py-16") do
+    div(class: "text-center py-5") do
       svg(
-        class: "mx-auto h-24 w-24 text-gray-300",
+        class: "mx-auto text-muted",
+        width: "96",
+        height: "96",
         fill: "none",
         viewBox: "0 0 24 24",
         stroke: "currentColor"
@@ -140,10 +146,10 @@ class Components::Seminars::IndexComponent < Components::ApplicationComponent
         )
       end
       
-      div(class: "mt-8") do
+      div(class: "mt-4") do
         if search_params.values.any?(&:present?)
-          h3(class: "text-xl font-medium text-gray-900 mb-2") { "No seminars found matching your criteria" }
-          p(class: "text-gray-500 mb-6") { "Try adjusting your filters or search terms to find what you're looking for." }
+          h3(class: "h5 fw-normal text-dark mb-2") { "No seminars found matching your criteria" }
+          p(class: "text-muted mb-4") { "Try adjusting your filters or search terms to find what you're looking for." }
           
           render Components::UI::Button.new(
             href: seminars_path,
@@ -152,8 +158,8 @@ class Components::Seminars::IndexComponent < Components::ApplicationComponent
             "Clear all filters"
           end
         else
-          h3(class: "text-xl font-medium text-gray-900 mb-2") { "No seminars available" }
-          p(class: "text-gray-500 mb-6") { "Be the first to share an upcoming seminar with the community." }
+          h3(class: "h5 fw-normal text-dark mb-2") { "No seminars available" }
+          p(class: "text-muted mb-4") { "Be the first to share an upcoming seminar with the community." }
           
           if user_signed_in?
             render Components::UI::Button.new(
