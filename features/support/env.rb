@@ -4,6 +4,40 @@
 # instead of editing this one. Cucumber will automatically load all features/**/*.rb
 # files.
 
+# SimpleCov configuration for Cucumber
+require 'simplecov'
+
+# Configure SimpleCov to merge with RSpec results
+SimpleCov.start 'rails' do
+  command_name 'cucumber'
+  merge_timeout 3600 # 1 hour timeout for merging results
+  
+  add_filter '/spec/'
+  add_filter '/config/'
+  add_filter '/db/'
+  add_filter '/vendor/'
+  add_filter '/tmp/'
+  add_filter '/log/'
+  add_filter '/public/'
+  add_filter '/storage/'
+  add_filter '/bin/'
+  add_filter '/lib/tasks/'
+  
+  # Track only the app directory
+  track_files 'app/**/*.rb'
+  
+  # Set minimum coverage to 90%
+  minimum_coverage 90
+  
+  # Enable terminal output and JSON for programmatic access
+  formatters = [
+    SimpleCov::Formatter::HTMLFormatter,
+    SimpleCov::Formatter::SimpleFormatter
+  ]
+  
+  SimpleCov.formatter = SimpleCov::Formatter::MultiFormatter.new(formatters)
+end
+
 require 'cucumber/rails'
 
 # Capybara defaults to CSS3 selectors rather than XPath.

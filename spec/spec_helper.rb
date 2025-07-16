@@ -34,7 +34,7 @@ SimpleCov.start 'rails' do
   # Set minimum coverage to 90%
   minimum_coverage 90
   
-  # Enable terminal output
+  # Enable terminal output and JSON for programmatic access
   formatters = [
     SimpleCov::Formatter::HTMLFormatter,
     SimpleCov::Formatter::SimpleFormatter
