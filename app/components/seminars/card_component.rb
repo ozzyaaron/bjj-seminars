@@ -147,7 +147,7 @@ module Components
       def render_instructors
         if @seminar.players.any?
           div(class: "mb-4") do
-            div(class: "flex items-center gap-2 mb-2") do
+            div(class: "d-flex align-items-center gap-2 mb-2") do
               render_instructor_avatars
               render_instructor_names
             end
@@ -156,20 +156,20 @@ module Components
       end
 
       def render_instructor_avatars
-        div(class: "flex -space-x-2") do
+        div(class: "d-flex") do
           @seminar.players.first(3).each_with_index do |player, index|
             div(
-              class: "relative w-8 h-8 rounded-full border-2 border-white bg-gray-200 flex items-center justify-center",
-              style: "z-index: #{10 - index}"
+              class: "position-relative rounded-circle border border-2 border-white bg-light d-flex align-items-center justify-content-center #{'ms-n2' if index > 0}",
+              style: "width: 32px; height: 32px; z-index: #{10 - index};"
             ) do
               if player.image.present?
                 image_tag(
                   player.image,
                   alt: player.name,
-                  class: "w-full h-full rounded-full object-cover"
+                  class: "w-100 h-100 rounded-circle object-fit-cover"
                 )
               else
-                span(class: "text-xs font-semibold text-gray-600") do
+                span(class: "small fw-semibold text-secondary") do
                   player.name.split(' ').map(&:first).join('')
                 end
               end
@@ -177,31 +177,33 @@ module Components
           end
           
           if @seminar.players.count > 3
-            div(class: "relative w-8 h-8 rounded-full border-2 border-white bg-gray-100 flex items-center justify-center") do
-              span(class: "text-xs font-medium text-gray-600") { "+#{@seminar.players.count - 3}" }
+            div(class: "position-relative rounded-circle border border-2 border-white bg-light d-flex align-items-center justify-content-center ms-n2", style: "width: 32px; height: 32px;") do
+              span(class: "small fw-medium text-secondary") { "+#{@seminar.players.count - 3}" }
             end
           end
         end
       end
 
       def render_instructor_names
-        div(class: "flex-1 min-w-0") do
+        div(class: "flex-fill text-truncate") do
           names = @seminar.players.map(&:name)
           display_names = names.first(2)
           
-          p(class: "text-sm font-medium text-gray-700 truncate") do
+          p(class: "small fw-medium text-dark text-truncate mb-0") do
             display_names.join(", ")
-            span(class: "text-gray-500") { " +#{names.count - 2} more" } if names.count > 2
+            span(class: "text-muted") { " +#{names.count - 2} more" } if names.count > 2
           end
         end
       end
 
       def render_location_and_date
-        div(class: "space-y-2 mb-4") do
+        div(class: "mb-4") do
           if @seminar.city.present?
-            div(class: "flex items-center text-sm text-gray-600") do
+            div(class: "d-flex align-items-center small text-secondary mb-2") do
               svg(
-                class: "w-4 h-4 mr-2 text-gray-400 flex-shrink-0",
+                class: "text-muted me-2 flex-shrink-0",
+                width: "16",
+                height: "16",
                 xmlns: "http://www.w3.org/2000/svg",
                 fill: "none",
                 viewBox: "0 0 24 24",
@@ -220,14 +222,16 @@ module Components
                   d: "M15 11a3 3 0 11-6 0 3 3 0 016 0z"
                 )
               end
-              span(class: "truncate") { [@seminar.city, @seminar.state].compact.join(", ") }
+              span(class: "text-truncate") { [@seminar.city, @seminar.state].compact.join(", ") }
             end
           end
 
           if @seminar.starts_at.present?
-            div(class: "flex items-center text-sm text-gray-600") do
+            div(class: "d-flex align-items-center small text-secondary") do
               svg(
-                class: "w-4 h-4 mr-2 text-gray-400 flex-shrink-0",
+                class: "text-muted me-2 flex-shrink-0",
+                width: "16",
+                height: "16",
                 xmlns: "http://www.w3.org/2000/svg",
                 fill: "none",
                 viewBox: "0 0 24 24",
