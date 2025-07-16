@@ -6,9 +6,7 @@ Given('there are seminars with instructors') do
   seminar.players << player
 end
 
-When('I visit the seminars page') do
-  visit seminars_path
-end
+# Removed duplicate - defined in seminar_management_steps.rb
 
 Then('I should see {string} as the page heading') do |heading|
   expect(page).to have_content(heading)

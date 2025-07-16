@@ -6,8 +6,8 @@ RSpec.describe "Component Rendering", type: :request do
       get root_path
       
       expect(response).to have_http_status(:success)
-      expect(response.body).to include("BJJ Seminar")
-      expect(response.body).to include("Tracker")
+      expect(response.body).to include("Train with the")
+      expect(response.body).to include("Find Your Perfect Seminar")
     end
 
     context "with seminars" do
@@ -24,7 +24,7 @@ RSpec.describe "Component Rendering", type: :request do
         get root_path
         
         expect(response).to have_http_status(:success)
-        expect(response.body).to include("Recent Seminars")
+        expect(response.body).to include("This Weekend")
         expect(response.body).to include(Seminar.first.title)
       end
     end
@@ -37,8 +37,8 @@ RSpec.describe "Component Rendering", type: :request do
       get seminars_path
       
       expect(response).to have_http_status(:success)
-      expect(response.body).to include("BJJ Seminars")
-      expect(response.body).to include("Discover upcoming Brazilian Jiu-Jitsu seminars")
+      expect(response.body).to include("Find Your Next BJJ Seminar")
+      expect(response.body).to include("Discover world-class Brazilian Jiu-Jitsu seminars")
     end
 
     context "with seminars" do

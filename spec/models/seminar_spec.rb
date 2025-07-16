@@ -130,9 +130,9 @@ RSpec.describe Seminar, type: :model do
       end
     end
     
-    describe '#primary_image' do
+    describe '#hero_image' do
       it 'returns nil when no images attached' do
-        expect(seminar.primary_image).to be_nil
+        expect(seminar.hero_image).to be_nil
       end
       
       it 'returns first image when images are attached' do
@@ -141,7 +141,7 @@ RSpec.describe Seminar, type: :model do
           filename: 'test.jpg',
           content_type: 'image/jpeg'
         )
-        expect(seminar.primary_image).to eq(seminar.images.first)
+        expect(seminar.hero_image).to eq(seminar.images.first)
       end
     end
     
