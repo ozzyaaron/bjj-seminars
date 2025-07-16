@@ -1,7 +1,6 @@
 source "https://rubygems.org"
 
 gem "rails", "~> 8.0"
-gem "propshaft"
 gem "sqlite3", ">= 2.1"
 gem "puma", ">= 5.0"
 gem "importmap-rails"
@@ -26,8 +25,9 @@ gem "thruster", require: false
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
 gem "image_processing", "~> 1.2"
 
-gem "tailwindcss-ruby"
-gem "tailwindcss-rails"
+gem "bootstrap", "~> 5.3"
+gem "sassc-rails"
+gem "sprockets-rails"
 
 # BJJ Seminar Tracker specific gems
 gem "phlex-rails"

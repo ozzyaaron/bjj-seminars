@@ -21,6 +21,8 @@ class Seminar < ApplicationRecord
   validates :address, :city, :state, :country, presence: true
   validates :state, format: { with: /\A[A-Z]{2}\z/, message: "must be a valid 2-letter state code" }
   validates :country, format: { with: /\A[A-Z]{2}\z/, message: "must be a valid 2-letter country code" }
+  validates :price, numericality: { greater_than_or_equal_to: 0 }, allow_nil: true
+  validates :seminar_type, inclusion: { in: %w[Gi No-Gi Both], message: "must be Gi, No-Gi, or Both" }, allow_blank: true
   validate :starts_at_is_in_future
   validate :ends_at_after_starts_at
   validate :user_can_create_seminar
@@ -56,7 +58,7 @@ class Seminar < ApplicationRecord
     players.pluck(:name).join(', ')
   end
 
-  def primary_image
+  def hero_image
     # Check Active Storage images first, then fall back to seminar_images
     if images.attached? && images.any?
       images.first

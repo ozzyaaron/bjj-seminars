@@ -18,7 +18,7 @@ class Components::SeminarCardComponent < Components::ApplicationComponent
     div(class: "aspect-w-16 aspect-h-9") do
       if seminar.has_images?
         img(
-          src: rails_blob_url(seminar.primary_image.variant(:medium)),
+          src: rails_blob_url(seminar.hero_image.variant(:medium)),
           alt: seminar.title,
           class: "w-full h-48 object-cover"
         )

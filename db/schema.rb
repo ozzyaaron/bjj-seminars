@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_07_04_004130) do
+ActiveRecord::Schema[8.0].define(version: 2025_07_13_223414) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -71,6 +71,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_04_004130) do
     t.text "bio"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "belt_rank"
     t.index ["name"], name: "index_players_on_name"
     t.index ["nationality"], name: "index_players_on_nationality"
     t.index ["team_id"], name: "index_players_on_team_id"
@@ -113,9 +114,13 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_04_004130) do
     t.decimal "longitude", precision: 10, scale: 6
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.decimal "price", precision: 8, scale: 2
+    t.string "seminar_type"
     t.index ["city", "state"], name: "index_seminars_on_city_and_state"
     t.index ["country", "state", "city"], name: "index_seminars_on_country_and_state_and_city"
     t.index ["latitude", "longitude"], name: "index_seminars_on_latitude_and_longitude"
+    t.index ["price"], name: "index_seminars_on_price"
+    t.index ["seminar_type"], name: "index_seminars_on_seminar_type"
     t.index ["starts_at"], name: "index_seminars_on_starts_at"
     t.index ["user_id"], name: "index_seminars_on_user_id"
     t.check_constraint "ends_at IS NULL OR ends_at > starts_at", name: "seminars_valid_duration"

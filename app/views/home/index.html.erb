@@ -1,1 +1,5 @@
-<%= render Components::HomePageComponent.new(recent_seminars: @recent_seminars) %>
+<%= render Components::HomePageComponent.new(
+  recent_seminars: @recent_seminars, 
+  featured_seminars: @featured_seminars, 
+  popular_instructors: @popular_instructors
+) %>
