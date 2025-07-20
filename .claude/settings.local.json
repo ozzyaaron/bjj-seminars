@@ -55,7 +55,8 @@
       "Bash(COVERAGE=true bin/rails spec)",
       "Bash(diff:*)",
       "Bash(git checkout:*)",
-      "Bash(cp:*)"
+      "Bash(cp:*)",
+      "Bash(git push:*)"
     ],
     "deny": []
   }

@@ -75,7 +75,4 @@ group :test do
   
   # Database cleaning for tests
   gem "database_cleaner-active_record"
-  
-  # Controller testing helpers
-  gem "rails-controller-testing"
 end
