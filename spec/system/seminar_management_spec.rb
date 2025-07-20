@@ -130,4 +130,111 @@ RSpec.describe 'Seminar Management', type: :system do
       expect(page).to have_content('Seminar was successfully created.')
     end
   end
+  
+  describe 'Multi-step seminar creation workflow' do
+    it 'guides user through complete seminar creation process' do
+      visit root_path
+      click_link 'Create Seminar'
+      
+      # Step 1: Basic seminar information
+      fill_in 'Title', with: 'Advanced Guard Retention'
+      fill_in 'Description', with: 'Comprehensive seminar on guard retention techniques'
+      fill_in 'Instructor name', with: 'Marcelo Garcia'
+      select 'Black', from: 'Instructor belt'
+      fill_in 'Instructor lineage', with: 'Fabio Gurgel'
+      
+      # Step 2: Event details
+      fill_in 'Seminar date', with: 2.weeks.from_now.strftime('%Y-%m-%d')
+      fill_in 'Venue', with: 'Alliance BJJ Academy'
+      fill_in 'Location', with: 'New York, NY'
+      
+      # Step 3: Pricing and submission
+      fill_in 'Price amount', with: '120.00'
+      select 'USD', from: 'Price currency'
+      
+      click_button 'Create Seminar'
+      
+      expect(page).to have_content('Seminar was successfully created.')
+      expect(page).to have_content('Advanced Guard Retention')
+      expect(page).to have_content('Marcelo Garcia')
+      expect(page).to have_content('Alliance BJJ Academy')
+      expect(page).to have_content('$120.00')
+    end
+    
+    it 'handles validation errors gracefully throughout the process' do
+      visit new_seminar_path
+      
+      # Submit with missing required fields
+      click_button 'Create Seminar'
+      
+      expect(page).to have_content("Title can't be blank")
+      expect(page).to have_content("Description can't be blank")
+      expect(page).to have_content("Instructor name can't be blank")
+      
+      # Fix some errors but leave others
+      fill_in 'Title', with: 'Test Seminar'
+      click_button 'Create Seminar'
+      
+      expect(page).to have_content("Description can't be blank")
+      expect(page).to have_content("Instructor name can't be blank")
+      expect(page).to have_selector('input[name="seminar[title]"][value="Test Seminar"]')
+    end
+  end
+  
+  describe 'Seminar discovery and search workflows' do
+    let!(:guard_seminar) { create(:seminar, title: 'Guard Workshop', instructor_name: 'Roger Gracie', location: 'London, UK', user: user) }
+    let!(:submission_seminar) { create(:seminar, title: 'Submission Techniques', instructor_name: 'Gordon Ryan', location: 'Austin, TX', user: create(:user)) }
+    let!(:defense_seminar) { create(:seminar, title: 'Escape Fundamentals', instructor_name: 'Xande Ribeiro', location: 'San Diego, CA', user: create(:user)) }
+    
+    it 'allows comprehensive search by various criteria' do
+      visit seminars_path
+      
+      # Search by title
+      fill_in 'Search seminars...', with: 'Guard'
+      click_button 'Search'
+      expect(page).to have_content('Guard Workshop')
+      expect(page).not_to have_content('Submission Techniques')
+      
+      # Search by instructor
+      fill_in 'Search seminars...', with: 'Gordon Ryan'
+      click_button 'Search'
+      expect(page).to have_content('Submission Techniques')
+      expect(page).not_to have_content('Guard Workshop')
+      
+      # Search by location
+      fill_in 'Search seminars...', with: 'London'
+      click_button 'Search'
+      expect(page).to have_content('Guard Workshop')
+      expect(page).not_to have_content('Submission Techniques')
+      
+      # Clear search
+      fill_in 'Search seminars...', with: ''
+      click_button 'Search'
+      expect(page).to have_content('Guard Workshop')
+      expect(page).to have_content('Submission Techniques')
+      expect(page).to have_content('Escape Fundamentals')
+    end
+    
+    it 'provides filtering options for seminar discovery' do
+      visit seminars_path
+      
+      # Should display all seminars initially
+      expect(page).to have_content('Guard Workshop')
+      expect(page).to have_content('Submission Techniques')
+      expect(page).to have_content('Escape Fundamentals')
+      
+      # Test pagination if many seminars exist
+      expect(page).to have_selector('.seminars-list')
+    end
+    
+    it 'shows detailed seminar information in search results' do
+      visit seminars_path
+      
+      within('.seminar-card', text: 'Guard Workshop') do
+        expect(page).to have_content('Roger Gracie')
+        expect(page).to have_content('London, UK')
+        expect(page).to have_link('View Details')
+      end
+    end
+  end
 end

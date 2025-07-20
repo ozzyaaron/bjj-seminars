@@ -6,7 +6,7 @@ module AuthenticationHelpers
       # For system tests, actually go through the login process
       visit login_path
       fill_in 'Email address', with: user.email
-      fill_in 'Password', with: 'password123'
+      fill_in 'Password', with: user.password || 'password123'
       click_button 'Sign in'
     end
   end

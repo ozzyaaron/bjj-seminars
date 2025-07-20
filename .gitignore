@@ -36,3 +36,6 @@
 # Ignore vendor directory (bundled gems)
 vendor/bundle/
 vendor/cache/
+
+# Ignore test coverage reports
+coverage/
