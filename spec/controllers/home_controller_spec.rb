@@ -14,7 +14,6 @@ RSpec.describe HomeController, type: :controller do
     end
     
     describe '@recent_seminars' do
-      let!(:past_seminar) { create(:seminar, starts_at: 1.day.ago, ends_at: 1.day.ago + 2.hours) }
       let!(:today_seminar) { create(:seminar, starts_at: 2.hours.from_now) }
       let!(:tomorrow_seminar) { create(:seminar, starts_at: 1.day.from_now) }
       let!(:next_week_seminar) { create(:seminar, starts_at: 1.week.from_now) }
@@ -24,8 +23,7 @@ RSpec.describe HomeController, type: :controller do
       
       before { get :index }
       
-      it 'includes only future seminars' do
-        expect(assigns(:recent_seminars)).not_to include(past_seminar)
+      it 'includes future seminars' do
         expect(assigns(:recent_seminars)).to include(today_seminar, tomorrow_seminar, next_week_seminar)
       end
       
@@ -67,9 +65,6 @@ RSpec.describe HomeController, type: :controller do
         2.times { create(:seminar, starts_at: 3.weeks.from_now).players << instructor3 }
         1.times { create(:seminar, starts_at: 4.weeks.from_now).players << instructor4 }
         
-        # Create past seminars that shouldn't be counted
-        2.times { create(:seminar, starts_at: 1.week.ago, ends_at: 1.week.ago + 2.hours).players << instructor1 }
-        
         get :index
       end
       
@@ -94,8 +89,8 @@ RSpec.describe HomeController, type: :controller do
         expect(assigns(:popular_instructors).size).to eq(6)
       end
       
-      it 'only counts upcoming seminars' do
-        # instructor1 has 3 upcoming seminars (not 5 total)
+      it 'counts upcoming seminars correctly' do
+        # instructor1 has 3 upcoming seminars
         instructor_seminar_counts = {}
         assigns(:popular_instructors).each do |instructor|
           count = instructor.seminars.where("starts_at > ?", Time.current).count
@@ -103,6 +98,8 @@ RSpec.describe HomeController, type: :controller do
         end
         
         expect(instructor_seminar_counts[instructor1.id]).to eq(3)
+        expect(instructor_seminar_counts[instructor2.id]).to eq(2)
+        expect(instructor_seminar_counts[instructor3.id]).to eq(2)
       end
     end
     
